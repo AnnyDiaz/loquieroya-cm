@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Lo Quiero YA CM">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- iOS Splash Screens -->
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <link rel="apple-touch-startup-image" href="/assets/icon-512.png">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Lo Quiero YA CM - Tienda de postres y antojos artesanales. Mini donas personalizadas, anchetas dulces y más. #AntójateDeFelicidad">
+  <meta name="keywords" content="postres, dulces, antojos, delivery, mini donas, anchetas, Lo Quiero YA CM, Colombia">
+  <meta name="author" content="Lo Quiero YA CM">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#ff6b9d">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lo Quiero YA CM - #AntójateDeFelicidad">
+  <meta property="og:description" content="Los mejores postres y antojos artesanales a domicilio. Mini donas personalizadas y anchetas dulces.">
+  <meta property="og:url" content="https://loquieroya-cm.web.app">
+  <meta property="og:site_name" content="Lo Quiero YA CM">
+  <meta property="og:image" content="https://loquieroya-cm.web.app/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lo Quiero YA CM - #AntójateDeFelicidad">
+  <meta name="twitter:description" content="Los mejores postres y antojos artesanales a domicilio.">
+  <meta name="twitter:image" content="https://loquieroya-cm.web.app/assets/twitter-image.jpg">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://loquieroya-cm.web.app">
+  
+  <title>Lo Quiero YA CM - #AntójateDeFelicidad | Postres y Antojos Artesanales</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSS9LD7GXT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TSS9LD7GXT');
+  </script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ux-enhancements.css">
+  <link rel="stylesheet" href="css/catalogo-compact.css">
+  <!-- Hero Modern Styles -->
+  <link rel="stylesheet" href="css/hero-modern.css">
+  
+  <!-- Carousel Styles -->
+  <link rel="stylesheet" href="css/hero-carousel.css">
+  
+  <!-- Carrito Modal Styles -->
+  <link rel="stylesheet" href="css/carrito-modal.css">
+  
+  <!-- Catálogo Boutique (Diseño Moderno) -->
+  <link rel="stylesheet" href="css/catalogo-boutique.css">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+</head>
+<body>
+  <!-- Skip to Content para Accesibilidad -->
+  <a href="#main-content" class="skip-to-content">Saltar al contenido principal</a>
+  
+  <!-- ============ ENCABEZADO ============ -->
+  <header class="header" id="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <h1 class="logo-text">🍩 Lo Quiero YA CM</h1>
+        <p class="tagline">#AntójateDeFelicidad</p>
+      </div>
+      
+      <nav class="nav">
+        <button class="nav-btn" id="btn-carrito" aria-label="Ver carrito de compras">
+          🛒 Carrito <span class="carrito-contador" id="carrito-contador">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HEADER/HERO SECTION MODERNO ============ -->
+  <header class="hero-header" role="banner" aria-label="Sección principal">
+    <!-- Decoraciones flotantes animadas -->
+    <div class="floating-elements">
+      <span class="floating-donut" aria-hidden="true">🍩</span>
+      <span class="floating-cupcake" aria-hidden="true">🧁</span>
+      <span class="floating-cake" aria-hidden="true">🍰</span>
+      <span class="floating-star" aria-hidden="true">⭐</span>
+      <span class="floating-heart" aria-hidden="true">💝</span>
+    </div>
+
+    <div class="hero-container">
+      <!-- Columna izquierda: Contenido de texto -->
+      <div class="hero-content">
+        <!-- Logo prominente -->
+        <div class="hero-logo">
+          <span class="logo-icon">🍩</span>
+          <h1 class="logo-text">Lo Quiero YA CM</h1>
+        </div>
+
+        <!-- Slogan destacado -->
+        <div class="hero-slogan">#AntójateDeFelicidad</div>
+
+        <!-- Headline principal -->
+        <h2 class="hero-headline">Endulza tu día con nosotros 🧁</h2>
+
+        <!-- Subheadline descriptivo -->
+        <p class="hero-subheadline">
+          Los postres más deliciosos hechos con amor, entregados con felicidad
+        </p>
+
+        <!-- Elementos de confianza -->
+        <div class="trust-elements">
+          <div class="trust-item">
+            <span class="trust-icon">🚚</span>
+            <span class="trust-text">Entrega Rápida</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">💝</span>
+            <span class="trust-text">Hecho Artesanal</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">⭐</span>
+            <span class="trust-text">4.9/5</span>
+          </div>
+        </div>
+
+        <!-- Botones CTA -->
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn-primary" aria-label="Ver catálogo de productos">
+            <span class="btn-icon">🛍️</span>
+            Ver Catálogo
+          </a>
+          <a href="#contacto" class="btn-secondary" aria-label="Ordenar ahora">
+            <span class="btn-icon">📞</span>
+            Ordenar Ahora
+          </a>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Imagen de producto -->
+      <div class="hero-visual">
+        <div class="product-showcase">
+          <!-- Badge de promoción -->
+          <div class="promo-badge">
+            <span class="badge-icon">🎉</span>
+            <span class="badge-text">¡Nuevos Productos!</span>
+          </div>
+
+          <!-- Imagen principal del producto -->
+          <div class="main-product-image">
+            <div class="product-placeholder">
+              🍩
+            </div>
+            <div class="product-glow"></div>
+          </div>
+
+          <!-- Productos secundarios -->
+          <div class="secondary-products">
+            <div class="mini-product mini-1">🧁</div>
+            <div class="mini-product mini-2">🍰</div>
+            <div class="mini-product mini-3">🍪</div>
+          </div>
+
+          <!-- Efectos de partículas -->
+          <div class="particles">
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ CARRUSEL DE PRODUCTOS DESTACADOS ============ -->
+  <section class="carousel-section" id="carousel-section">
+    <div class="carousel-header">
+      <h2 class="carousel-title">✨ Productos Destacados</h2>
+      <p class="carousel-subtitle">Los favoritos de nuestros clientes</p>
+    </div>
+    
+    <div class="carousel-container" id="carousel-container">
+      <!-- El carrusel se renderiza aquí con JavaScript -->
+      <div class="carousel-loading">
+        <div class="carousel-loading-spinner"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTENEDOR PRINCIPAL ============ -->
+  <div class="container">
+    
+    <!-- ============ CONTENIDO PRINCIPAL ============ -->
+    <main class="main-content">
+      
+      <!-- Sección de Catálogo -->
+      <section class="catalogo-section" id="catalogo">
+        <div class="section-header">
+          <h2 class="section-title">🍰 Nuestro Catálogo</h2>
+          <p class="section-subtitle">Endulza tu día con nuestros postres artesanales — preparados con amor y entregados a tu puerta</p>
+          
+          <!-- Filtros de Categorías -->
+          <div class="filtros-categorias">
+            <button class="filtro-btn active" data-categoria="todos">
+              🎯 Todos
+            </button>
+            <button class="filtro-btn" data-categoria="mini-donas">
+              🍩 Mini Donas
+            </button>
+            <button class="filtro-btn" data-categoria="ancheta">
+              🎁 Anchetas
+            </button>
+            <button class="filtro-btn" data-categoria="postres">
+              🍰 Postres
+            </button>
+            <button class="filtro-btn" data-categoria="dulces">
+              🍬 Dulces
+            </button>
+            <button class="filtro-btn" data-categoria="chocolates">
+              🍫 Chocolates
+            </button>
+          </div>
+        </div>
+        
+        <div class="catalogo" id="catalogo-productos">
+          <!-- Los productos se cargarán dinámicamente desde JS -->
+          <div class="loading">Cargando productos deliciosos...</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ============ PANEL LATERAL DEL CARRITO ============ -->
+    <!-- Modal del carrito -->
+    <div class="carrito-modal" id="carrito-modal">
+      <div class="carrito-modal-content">
+        <div class="carrito-header">
+          <h3 class="carrito-title">🛒 Tu Carrito</h3>
+          <button class="btn-cerrar-carrito" id="btn-cerrar-carrito" aria-label="Cerrar carrito">✕</button>
+        </div>
+
+        <div class="carrito-contenido">
+          <!-- Carrito vacío -->
+          <div class="carrito-vacio" id="carrito-vacio">
+            <p class="carrito-vacio-icon">🛍️</p>
+            <p class="carrito-vacio-text">Tu carrito está vacío</p>
+            <p class="carrito-vacio-subtext">¡Agrega algunos productos deliciosos!</p>
+          </div>
+
+          <!-- Lista de productos en el carrito -->
+          <ul class="carrito-lista" id="lista-carrito">
+            <!-- Los items del carrito se cargarán dinámicamente -->
+          </ul>
+        </div>
+
+        <!-- Resumen del carrito -->
+        <div class="carrito-footer" id="carrito-footer">
+          <div class="carrito-total">
+            <span class="total-label">Total:</span>
+            <span class="total-precio" id="total-precio">$0</span>
+          </div>
+          
+          <button class="btn-checkout" id="btn-checkout">
+            <span>Finalizar Pedido</span>
+            <span class="btn-icon">→</span>
+          </button>
+          
+          <button class="btn-vaciar" id="btn-vaciar-carrito">
+            Vaciar Carrito
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4 class="footer-title">Lo Quiero YA CM</h4>
+        <p class="footer-text">#AntójateDeFelicidad 🍩</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4 class="footer-title">Contacto</h4>
+        <p class="footer-text">📱 WhatsApp: +57 XXX XXX XXXX</p>
+        <p class="footer-text">📧 Email: info@loquieroyacm.com</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4 class="footer-title">Síguenos</h4>
+        <div class="footer-social">
+          <a href="#" class="social-link" aria-label="Instagram">📷 Instagram</a>
+          <a href="#" class="social-link" aria-label="Facebook">📘 Facebook</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">© 2025 Lo Quiero YA CM. Todos los derechos reservados.</p>
+      <p class="footer-tagline">Hecho con 💖 y mucha azúcar</p>
+    </div>
+  </footer>
+
+  <!-- ============ MODAL INFORMACIÓN CLIENTE ============ -->
+  <div id="modal-cliente" class="modal-cliente" style="display: none;">
+    <div class="modal-contenido-cliente">
+      <div class="modal-header-cliente">
+        <h3>📝 Información del Cliente</h3>
+        <button class="btn-cerrar-modal-cliente" onclick="cerrarModalCliente()">✕</button>
+      </div>
+      
+      <div class="modal-body-cliente">
+        <div class="form-group">
+          <label for="nombre-cliente">👤 Nombre completo:</label>
+          <input type="text" id="nombre-cliente" placeholder="Ingresa tu nombre completo" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="telefono-cliente">📱 Teléfono:</label>
+          <input type="tel" id="telefono-cliente" placeholder="Ej: 3001234567" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="direccion-cliente">📍 Dirección de entrega:</label>
+          <textarea id="direccion-cliente" placeholder="Ingresa tu dirección completa" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="observaciones-cliente">💬 Observaciones (opcional):</label>
+          <textarea id="observaciones-cliente" placeholder="Alguna instrucción especial para tu pedido..." rows="2"></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-footer-cliente">
+        <button class="btn-cancelar-cliente" onclick="cerrarModalCliente()">Cancelar</button>
+        <button class="btn-confirmar-cliente" onclick="confirmarPedido()">✅ Confirmar Pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SCRIPTS ============ -->
+  <!-- Firebase Config -->
+  <script src="js/firebase-config.js"></script>
+  
+  <!-- Utilidades -->
+  <script src="js/utils/validators.js"></script>
+  <script src="js/utils/error-handler.js"></script>
+  
+  <!-- UX Enhancements -->
+  <script src="js/ux-manager.js"></script>
+  <script src="js/pwa-installer.js"></script>
+  
+  <!-- API Service (FastAPI Backend) -->
+  <script src="js/api.service.js"></script>
+  
+  <!-- Servicios Firebase -->
+  <script src="js/productos.service.js"></script>
+  <script src="js/pedidos.service.js"></script>
+  <script src="js/storage.service.js"></script>
+  <script src="js/firebase.service.js"></script>
+  
+  <!-- Filtros de Catálogo -->
+  <script src="js/catalogo-filtros.js"></script>
+  
+  <!-- App principal -->
+  <script src="js/app.js"></script>
+  
+  <!-- Carousel -->
+  <script src="js/carousel.js"></script>
+  
+  <!-- Catalogo Layout -->
+  <script src="js/catalogo-layout.js"></script>
+  
+</body>
+</html>

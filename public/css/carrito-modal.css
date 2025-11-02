@@ -1,0 +1,407 @@
+/* ============================================
+   🛒 Carrito Modal - Lo Quiero YA CM
+   Modal elegante para el carrito de compras
+   ============================================ */
+
+/* ============ MODAL DEL CARRITO ============ */
+.carrito-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.carrito-modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.carrito-modal-content {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.carrito-modal.active .carrito-modal-content {
+  transform: scale(1);
+}
+
+/* ============ HEADER DEL CARRITO ============ */
+.carrito-header {
+  background: linear-gradient(135deg, #ff6b9d, #ffd166);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carrito-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.btn-cerrar-carrito {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-cerrar-carrito:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* ============ CONTENIDO DEL CARRITO ============ */
+.carrito-contenido {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Carrito vacío */
+.carrito-vacio {
+  text-align: center;
+  padding: 40px 20px;
+  color: #7F8C8D;
+}
+
+.carrito-vacio-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.carrito-vacio-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2C3E50;
+}
+
+.carrito-vacio-subtext {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Lista del carrito */
+.carrito-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.carrito-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.carrito-item:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.carrito-item-emoji {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carrito-item-info {
+  flex: 1;
+}
+
+.carrito-item-nombre {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2C3E50;
+  margin-bottom: 4px;
+}
+
+.carrito-item-descripcion {
+  font-size: 0.8rem;
+  color: #7F8C8D;
+  margin-bottom: 6px;
+}
+
+.carrito-item-precio {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ff6b9d;
+}
+
+.carrito-item-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 10px;
+}
+
+.btn-cantidad {
+  background: #ff6b9d;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-cantidad:hover {
+  background: #e55a8a;
+  transform: scale(1.1);
+}
+
+.cantidad-numero {
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.btn-eliminar {
+  background: #dc3545;
+  color: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-eliminar:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+/* ============ FOOTER DEL CARRITO ============ */
+.carrito-footer {
+  padding: 20px;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.carrito-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.total-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2C3E50;
+}
+
+.total-precio {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ff6b9d;
+}
+
+/* Botones del carrito */
+.carrito-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-checkout {
+  background: linear-gradient(135deg, #ff6b9d, #ffd166);
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+}
+
+.btn-checkout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+}
+
+.btn-checkout:active {
+  transform: translateY(0);
+}
+
+.btn-vaciar {
+  background: transparent;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-vaciar:hover {
+  background: #dc3545;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ============ RESPONSIVE DESIGN ============ */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .carrito-modal {
+    padding: 10px;
+  }
+  
+  .carrito-modal-content {
+    max-height: 90vh;
+  }
+  
+  .carrito-contenido {
+    max-height: 300px;
+  }
+  
+  .carrito-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .carrito-item-cantidad {
+    margin: 0;
+    align-self: flex-end;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .carrito-header {
+    padding: 15px;
+  }
+  
+  .carrito-title {
+    font-size: 1.3rem;
+  }
+  
+  .carrito-contenido {
+    padding: 15px;
+  }
+  
+  .carrito-footer {
+    padding: 15px;
+  }
+  
+  .carrito-total {
+    padding: 12px;
+  }
+  
+  .total-label {
+    font-size: 1.1rem;
+  }
+  
+  .total-precio {
+    font-size: 1.3rem;
+  }
+  
+  .btn-checkout {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .btn-vaciar {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ============ ANIMACIONES ============ */
+@keyframes slideInModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.carrito-modal.active .carrito-modal-content {
+  animation: slideInModal 0.3s ease;
+}
+
+/* Scroll personalizado */
+.carrito-contenido::-webkit-scrollbar {
+  width: 6px;
+}
+
+.carrito-contenido::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.carrito-contenido::-webkit-scrollbar-thumb {
+  background: #ff6b9d;
+  border-radius: 3px;
+}
+
+.carrito-contenido::-webkit-scrollbar-thumb:hover {
+  background: #e55a8a;
+}

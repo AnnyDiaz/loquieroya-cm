@@ -1,0 +1,135 @@
+{
+  "name": "Notificaciones Lo Quiero YA CM",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nuevo-pedido",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook Nuevo Pedido",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "webhookId": "nuevo-pedido"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Procesar datos del pedido\nconst pedido = $input.first().json;\n\n// Extraer información importante\nconst cliente = pedido.cliente;\nconst productos = pedido.productos;\nconst total = pedido.total;\n\n// Crear mensaje para WhatsApp\nconst mensajeWhatsApp = `\n🍩 *NUEVO PEDIDO - Lo Quiero YA CM*\n\n👤 *Cliente:* ${cliente.nombre}\n📱 *Teléfono:* ${cliente.telefono}\n📍 *Dirección:* ${cliente.direccion}\n\n🛍️ *Productos:*\n${productos.map(p => `• ${p.nombre} - $${p.precio.toLocaleString()}`).join('\\n')}\n\n💰 *Total:* $${total.toLocaleString()}\n📅 *Fecha:* ${new Date().toLocaleString('es-CO')}\n\n${pedido.observaciones ? `💬 *Observaciones:* ${pedido.observaciones}` : ''}\n`;\n\n// Crear mensaje para email\nconst mensajeEmail = `\nNuevo pedido recibido:\n\nCliente: ${cliente.nombre}\nTeléfono: ${cliente.telefono}\nDirección: ${cliente.direccion}\n\nProductos:\n${productos.map(p => `- ${p.nombre}: $${p.precio.toLocaleString()}`).join('\\n')}\n\nTotal: $${total.toLocaleString()}\nFecha: ${new Date().toLocaleString('es-CO')}\n\n${pedido.observaciones ? `Observaciones: ${pedido.observaciones}` : ''}\n`;\n\nreturn {\n  json: {\n    pedido: pedido,\n    mensajeWhatsApp: mensajeWhatsApp,\n    mensajeEmail: mensajeEmail,\n    cliente: cliente,\n    total: total,\n    numeroPedido: pedido.id\n  }\n};"
+      },
+      "id": "code-node",
+      "name": "Procesar Pedido",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@loquieroyacm.com",
+        "toEmail": "admin@loquieroyacm.com",
+        "subject": "🍩 Nuevo Pedido #{{ $json.numeroPedido }} - Lo Quiero YA CM",
+        "message": "{{ $json.mensajeEmail }}",
+        "options": {}
+      },
+      "id": "email-node",
+      "name": "Enviar Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"Pedido recibido correctamente\",\n  \"pedidoId\": \"{{ $json.numeroPedido }}\"\n}"
+      },
+      "id": "response-node",
+      "name": "Respuesta Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot{{ $vars.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "{{ $vars.TELEGRAM_CHAT_ID }}"
+            },
+            {
+              "name": "text",
+              "value": "{{ $json.mensajeWhatsApp }}"
+            },
+            {
+              "name": "parse_mode",
+              "value": "Markdown"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "telegram-node",
+      "name": "Notificación Telegram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 400]
+    }
+  ],
+  "connections": {
+    "Webhook Nuevo Pedido": {
+      "main": [
+        [
+          {
+            "node": "Procesar Pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procesar Pedido": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Notificación Telegram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respuesta Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "id": "1",
+  "tags": []
+}

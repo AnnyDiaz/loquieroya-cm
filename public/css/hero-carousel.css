@@ -1,0 +1,770 @@
+/* ============================================
+   🎨 Hero Section & Carousel - Lo Quiero YA CM
+   Diseño moderno, apetitoso y profesional
+   ============================================ */
+
+/* ============ HERO SECTION ESPECTACULAR ============ */
+.hero-main {
+  position: relative;
+  min-height: 40vh;
+  max-height: 40vh;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FFD166 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+/* Patrón decorativo animado */
+.hero-main::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+  animation: float-pattern 30s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes float-pattern {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(120deg); }
+  66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+/* Elementos flotantes decorativos */
+.hero-decoration {
+  position: absolute;
+  font-size: 4rem;
+  opacity: 0.2;
+  animation: float-element 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.decoration-1 {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.decoration-2 {
+  top: 60%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.decoration-3 {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+@keyframes float-element {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(10deg); }
+}
+
+/* Contenedor del hero */
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Contenido de texto */
+.hero-text {
+  color: white;
+}
+
+.hero-pretitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  opacity: 0.95;
+  animation: fadeInLeft 0.8s ease;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 15px;
+  text-shadow: 3px 6px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeInLeft 0.8s ease 0.2s both;
+}
+
+.hero-title-emoji {
+  display: inline-block;
+  animation: bounce-rotate 2s ease-in-out infinite;
+}
+
+@keyframes bounce-rotate {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(15deg); }
+}
+
+.hero-slogan {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.95);
+  color: #FF6B9D;
+  padding: 12px 24px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: fadeInLeft 0.8s ease 0.4s both;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slogan::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer-hero 3s infinite;
+}
+
+@keyframes shimmer-hero {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.hero-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  opacity: 0.95;
+  animation: fadeInLeft 0.8s ease 0.6s both;
+}
+
+/* Call to Action */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 50px;
+  background: white;
+  color: #FF6B9D;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: fadeInLeft 0.8s ease 0.8s both;
+  text-decoration: none;
+}
+
+.hero-cta:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.hero-cta::after {
+  content: '→';
+  font-size: 1.6rem;
+  transition: transform 0.3s ease;
+}
+
+.hero-cta:hover::after {
+  transform: translateX(10px);
+}
+
+/* Imagen del hero */
+.hero-image {
+  position: relative;
+  animation: fadeInRight 1s ease 0.4s both;
+}
+
+.hero-image-main {
+  width: 100%;
+  height: auto;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  transform: rotate(3deg);
+  transition: transform 0.5s ease;
+}
+
+.hero-image:hover .hero-image-main {
+  transform: rotate(0deg) scale(1.05);
+}
+
+/* Badge flotante en hero */
+.hero-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  color: #FF6B9D;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  animation: float-badge 3s ease-in-out infinite;
+}
+
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ============ CARRUSEL ASIMÉTRICO ============ */
+.carousel-section {
+  padding: 30px 20px;
+  background: linear-gradient(180deg, #FFF9F0 0%, #FFFFFF 100%);
+  position: relative;
+  z-index: 10;
+  margin-bottom: 30px;
+}
+
+.carousel-header {
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 15;
+}
+
+.carousel-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2C3E50;
+  margin-bottom: 5px;
+}
+
+.carousel-subtitle {
+  font-size: 0.8rem;
+  color: #7F8C8D;
+}
+
+.carousel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 15;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: visible;
+  padding: 10px 0;
+  z-index: 5;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  padding: 0 5%;
+}
+
+/* ============ PRODUCTO CENTRAL (Grande) ============ */
+.carousel-item {
+  flex-shrink: 0;
+  transition: all 0.5s ease;
+  opacity: 0.5;
+  transform: scale(0.85);
+  filter: blur(2px);
+}
+
+.carousel-item.active {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+  z-index: 10;
+  width: 280px;
+}
+
+.carousel-item.side {
+  opacity: 0.8;
+  transform: scale(0.85);
+  cursor: pointer;
+  width: 200px;
+}
+
+.carousel-item.side:hover {
+  opacity: 0.9;
+  transform: scale(0.8);
+}
+
+.carousel-card {
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.carousel-item.active .carousel-card {
+  box-shadow: 0 30px 80px rgba(255, 107, 157, 0.3);
+}
+
+/* Badge en carrusel */
+.carousel-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #FFD166, #FF6B9D);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 5;
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+  animation: pulse-badge 2s ease infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* Imagen del carrusel */
+.carousel-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FFF0F5, #FFE5EC);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-item.side .carousel-image-wrapper {
+  height: 100px;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item.active:hover .carousel-image {
+  transform: scale(1.1);
+}
+
+.carousel-placeholder {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 4px 12px rgba(255, 107, 157, 0.3));
+}
+
+.carousel-item.side .carousel-placeholder {
+  font-size: 1.5rem;
+}
+
+/* Contenido del producto en carrusel */
+.carousel-content {
+  padding: 15px;
+}
+
+.carousel-item.side .carousel-content {
+  padding: 10px;
+}
+
+.carousel-product-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2C3E50;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.carousel-item.side .carousel-product-name {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.carousel-product-description {
+  font-size: 0.95rem;
+  color: #7F8C8D;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.carousel-item.side .carousel-product-description {
+  display: none;
+}
+
+/* Rating */
+.carousel-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.carousel-item.side .carousel-rating {
+  display: none;
+}
+
+.rating-stars {
+  color: #FFD166;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+}
+
+.rating-count {
+  color: #7F8C8D;
+  font-size: 0.85rem;
+}
+
+/* Precio en carrusel */
+.carousel-price-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.carousel-price {
+  font-size: 1.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #FF6B9D, #FFD166);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.carousel-item.side .carousel-price {
+  font-size: 1rem;
+}
+
+.carousel-price-label {
+  font-size: 0.9rem;
+  color: #7F8C8D;
+  text-decoration: line-through;
+}
+
+/* Botón en carrusel */
+.carousel-btn {
+  width: 100%;
+  padding: 14px 30px;
+  background: linear-gradient(135deg, #FF6B9D, #FF8BAD);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 25px rgba(255, 107, 157, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 45px rgba(255, 107, 157, 0.6);
+}
+
+.carousel-item.side .carousel-btn {
+  display: none;
+}
+
+/* ============ NAVEGACIÓN DEL CARRUSEL ============ */
+
+/* Flechas */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: #FF6B9D;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-nav-btn:hover {
+  background: #FF6B9D;
+  color: white;
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+}
+
+.carousel-nav-btn.prev {
+  left: 15px;
+}
+
+.carousel-nav-btn.next {
+  right: 15px;
+}
+
+.carousel-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Indicadores (dots) */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #D1D5DB;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot:hover {
+  background: #FFB6D6;
+  transform: scale(1.3);
+}
+
+.carousel-dot.active {
+  background: #FF6B9D;
+  width: 30px;
+  border-radius: 5px;
+  animation: dot-active 0.4s ease;
+}
+
+@keyframes dot-active {
+  0% { width: 10px; }
+  50% { width: 40px; }
+  100% { width: 30px; }
+}
+
+/* ============ RESPONSIVE - HERO ============ */
+
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  .hero-slogan {
+    font-size: 2rem;
+  }
+
+  .hero-cta {
+    font-size: 1.2rem;
+    padding: 18px 40px;
+  }
+
+  .hero-image-main {
+    max-width: 500px;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-main {
+    min-height: auto;
+    padding: 60px 20px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-slogan {
+    font-size: 1.5rem;
+    padding: 12px 25px;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+  }
+
+  .carousel-nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+
+  .carousel-nav-btn.prev {
+    left: 10px;
+  }
+
+  .carousel-nav-btn.next {
+    right: 10px;
+  }
+}
+
+/* ============ RESPONSIVE - CARRUSEL ============ */
+
+@media (max-width: 992px) {
+  .carousel-track {
+    padding: 0 3%;
+  }
+
+  .carousel-image-wrapper {
+    height: 250px;
+  }
+
+  .carousel-item.side .carousel-image-wrapper {
+    height: 120px;
+  }
+
+  .carousel-product-name {
+    font-size: 1.4rem;
+  }
+
+  .carousel-price {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-track {
+    padding: 0;
+  }
+
+  /* Solo mostrar producto central en mobile */
+  .carousel-item.side {
+    display: none;
+  }
+
+  .carousel-image-wrapper {
+    height: 220px;
+  }
+
+  .carousel-product-name {
+    font-size: 1.3rem;
+  }
+
+  .carousel-price {
+    font-size: 1.8rem;
+  }
+
+  .carousel-btn {
+    font-size: 1rem;
+    padding: 12px 25px;
+  }
+
+  .carousel-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+  }
+
+  .carousel-nav-btn.prev {
+    left: 10px;
+  }
+
+  .carousel-nav-btn.next {
+    right: 10px;
+  }
+}
+
+/* ============ ANIMACIONES ============ */
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============ ACCESIBILIDAD ============ */
+
+.carousel-container[aria-live="polite"] {
+  /* Announce changes to screen readers */
+}
+
+.carousel-nav-btn[aria-label] {
+  /* Accessible navigation buttons */
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============ LOADING STATE ============ */
+
+.carousel-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.carousel-loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #F3F4F6;
+  border-top-color: #FF6B9D;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+

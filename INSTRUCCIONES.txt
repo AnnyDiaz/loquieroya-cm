@@ -1,0 +1,77 @@
+═══════════════════════════════════════════════════════════════════
+  SISTEMA DE GESTIÓN DE PRODUCTOS - Lo Quiero YA CM
+═══════════════════════════════════════════════════════════════════
+
+📋 PASOS PARA INICIAR EL SISTEMA:
+
+1. HAZ DOBLE CLICK EN:
+   ✅ INICIAR_BACKEND.bat     (se abrirá una ventana verde)
+   ✅ INICIAR_FRONTEND.bat    (se abrirá una ventana azul)
+
+   ⚠️ IMPORTANTE: Deja AMBAS ventanas ABIERTAS
+
+2. ESPERA 10 SEGUNDOS
+
+3. ABRE BRAVE Y VE A:
+   http://localhost:5500/admin.html
+
+4. DESACTIVA BRAVE SHIELDS:
+   - Click en el escudo 🛡️ (arriba a la derecha)
+   - Desactiva "Shields" para localhost
+
+5. INICIA SESIÓN:
+   📧 Email:    admin@loquieroyacm.com
+   🔑 Password: admin123
+
+6. CLICK EN "🍰 Productos" (menú lateral izquierdo)
+
+7. CLICK EN "➕ Nuevo Producto"
+
+8. COMPLETA EL FORMULARIO:
+   - Nombre: Ej. "Ancheta Romántica"
+   - Descripción: Ej. "Ancheta perfecta para sorprender"
+   - Precio: Ej. 45000
+   - Categoría: Selecciona una
+   - Imágenes: Click y selecciona 1 o más imágenes
+
+9. CLICK EN "💾 Guardar Producto"
+
+10. ¡LISTO! Verás tu producto en la tabla
+
+═══════════════════════════════════════════════════════════════════
+
+📍 URLs IMPORTANTES:
+
+- Panel Admin:       http://localhost:5500/admin.html
+- Catálogo Público:  http://localhost:5500/
+- API Docs:          http://localhost:8000/docs
+
+═══════════════════════════════════════════════════════════════════
+
+⚠️ SOLUCIÓN DE PROBLEMAS:
+
+❌ "Failed to fetch" o "ERR_CONNECTION_REFUSED"
+   ✅ Verifica que ambas ventanas (backend y frontend) estén abiertas
+   ✅ Desactiva Brave Shields
+
+❌ "ERR_BLOCKED_BY_CLIENT"
+   ✅ Desactiva Brave Shields
+   ✅ Desactiva extensiones bloqueadoras (uBlock, AdBlock)
+
+❌ Las imágenes no se ven
+   ✅ Verifica que el backend esté corriendo (ventana verde abierta)
+   ✅ Las imágenes deben ser JPG, PNG o WEBP (máx 5MB)
+
+═══════════════════════════════════════════════════════════════════
+
+💡 PARA DETENER EL SISTEMA:
+
+1. Cierra las ventanas del backend y frontend (Ctrl+C o X)
+2. O presiona Ctrl+C en cada ventana
+
+═══════════════════════════════════════════════════════════════════
+
+✨ ¡Disfruta creando productos con el sistema boutique moderno!
+
+#AntójateDeFelicidad 🍩
+

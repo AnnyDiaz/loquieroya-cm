@@ -1,0 +1,29 @@
+{
+  "name": "loquieroya-cm",
+  "version": "1.0.0",
+  "description": "Plataforma web de pedidos para Lo Quiero YA CM - #AntójateDeFelicidad",
+  "main": "index.html",
+  "scripts": {
+    "start": "firebase serve",
+    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:firestore": "firebase deploy --only firestore",
+    "logs": "firebase functions:log"
+  },
+  "keywords": [
+    "postres",
+    "mini-donas",
+    "anchetas",
+    "emprendimiento",
+    "firebase",
+    "e-commerce"
+  ],
+  "author": "Lo Quiero YA CM",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^12.4.0"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.0.0"
+  }
+}

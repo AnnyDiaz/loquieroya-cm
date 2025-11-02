@@ -1,0 +1,47 @@
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+*.log
+logs/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporal
+tmp/
+temp/
+.cache/
+
+# Build
+dist/
+build/
+
+# Documentos privados
+*.pdf
+
+# Credenciales (NUNCA subir)
+admin-credentials.json
+*-credentials.json
+serviceAccountKey.json
+.env
+.env.local
+

@@ -1,0 +1,484 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel de Administración - Lo Quiero YA CM</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/ux-enhancements.css">
+  <link rel="stylesheet" href="css/admin-modern.css">
+  <link rel="stylesheet" href="css/admin-productos.css">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+</head>
+<body class="admin-body">
+  
+  <!-- Toggle Sidebar para Mobile -->
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú">
+    ☰
+  </button>
+  
+  <!-- ============ PANTALLA DE LOGIN ============ -->
+  <div class="admin-login" id="admin-login">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>🍩 Lo Quiero YA CM</h1>
+        <p>Panel de Administración</p>
+      </div>
+      <form id="form-login" class="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required placeholder="admin@loquieroyacm.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-login">Iniciar Sesión</button>
+        <div id="error-login" class="error-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ PANEL DE ADMINISTRACIÓN ============ -->
+  <div class="admin-panel" id="admin-panel" style="display: none;">
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <h2>🍩 Lo Quiero YA</h2>
+        <p>#AntójateDeFelicidad</p>
+      </div>
+      
+      <nav class="admin-nav">
+        <a href="#" class="nav-link active" data-section="pedidos">
+          📦 Pedidos
+        </a>
+        <a href="#" class="nav-link" data-section="productos">
+          🍰 Productos
+        </a>
+        <a href="#" class="nav-link" data-section="estadisticas">
+          📊 Estadísticas
+        </a>
+        <a href="#" class="nav-link" data-section="configuracion">
+          ⚙️ Configuración
+        </a>
+      </nav>
+      
+      <div class="admin-user">
+        <p class="user-email" id="user-email">admin@loquieroyacm.com</p>
+        <button class="btn-logout" id="btn-logout">Cerrar Sesión</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      
+      <!-- Header -->
+      <header class="admin-header">
+        <h1 id="section-title">📦 Pedidos</h1>
+        <div class="admin-actions">
+          <button class="btn-refresh" id="btn-refresh">🔄 Actualizar</button>
+        </div>
+      </header>
+
+      <!-- ============ SECCIÓN PEDIDOS ============ -->
+      <section class="admin-section active" id="section-pedidos">
+        
+        <!-- Filtros Avanzados -->
+        <div class="admin-filters">
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <!-- Estado -->
+            <select id="filtro-estado" class="filter-select">
+              <option value="todos">📋 Todos los estados</option>
+              <option value="pendiente">⏳ Pendiente</option>
+              <option value="confirmado">✅ Confirmado</option>
+              <option value="en_preparacion">👨‍🍳 En Preparación</option>
+              <option value="en_camino">🚗 En Camino</option>
+              <option value="entregado">✅ Entregado</option>
+              <option value="cancelado">❌ Cancelado</option>
+            </select>
+            
+            <!-- Fecha Desde -->
+            <input type="date" id="filtro-fecha-desde" class="filter-input" placeholder="Desde">
+            
+            <!-- Fecha Hasta -->
+            <input type="date" id="filtro-fecha-hasta" class="filter-input" placeholder="Hasta">
+            
+            <!-- Búsqueda -->
+            <input type="search" id="busqueda" class="filter-input" placeholder="🔍 Buscar por cliente, teléfono o ID...">
+            
+            <!-- Ordenar -->
+            <select id="filtro-ordenar" class="filter-select">
+              <option value="fecha_desc">Más recientes</option>
+              <option value="fecha_asc">Más antiguos</option>
+              <option value="total_desc">Mayor valor</option>
+              <option value="total_asc">Menor valor</option>
+            </select>
+            
+            <!-- Botones -->
+            <button id="btn-limpiar-filtros" class="btn-secondary" style="padding: 8px 16px;">
+              🗑️ Limpiar
+            </button>
+            
+            <button id="btn-exportar-csv" class="btn-primary" style="padding: 8px 16px;">
+              📊 CSV
+            </button>
+            
+            <button id="btn-exportar-excel" class="btn-primary" style="padding: 8px 16px;">
+              📗 Excel
+            </button>
+          </div>
+          
+          <!-- Contador de resultados -->
+          <div style="margin-top: 10px; color: var(--color-text-secondary); font-size: 0.9rem;">
+            <span id="total-resultados">0 pedidos</span>
+          </div>
+        </div>
+
+        <!-- Tabla de Pedidos -->
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Dirección</th>
+                <th>Estado</th>
+                <th>Total</th>
+                <th>Items</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-pedidos">
+              <!-- Los pedidos se cargan dinámicamente -->
+              <tr>
+                <td colspan="8" class="loading-cell">Cargando pedidos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Sin pedidos -->
+        <div class="empty-state" id="empty-pedidos" style="display: none;">
+          <p class="empty-icon">📦</p>
+          <p class="empty-text">No hay pedidos todavía</p>
+          <p class="empty-subtext">Los pedidos aparecerán aquí cuando los clientes realicen compras</p>
+        </div>
+
+      </section>
+
+      <!-- ============ SECCIÓN PRODUCTOS ============ -->
+      <section class="admin-section" id="section-productos" style="display: none;">
+        
+        <!-- Header con botón -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2>🍰 Gestión de Productos</h2>
+          <button class="btn-primary" id="btn-nuevo-producto">
+            ➕ Nuevo Producto
+          </button>
+        </div>
+
+        <!-- Tabla de Productos -->
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-productos-body">
+              <tr>
+                <td colspan="7" class="loading-cell">Cargando productos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ============ SECCIÓN ESTADÍSTICAS ============ -->
+      <section class="admin-section" id="section-estadisticas" style="display: none;">
+        <h2 style="margin-bottom: 20px;">📊 Estadísticas en Tiempo Real</h2>
+        
+        <div class="stats-grid">
+          <!-- Fila 1: Estadísticas generales -->
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon">📦</span>
+              Total Pedidos
+            </h3>
+            <p class="stat-value" id="stat-total-pedidos">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon" style="background: var(--estado-pendiente-bg); color: var(--estado-pendiente);">⏳</span>
+              Pendientes
+            </h3>
+            <p class="stat-value" id="stat-pendientes">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon" style="background: var(--estado-entregado-bg); color: var(--estado-entregado);">✅</span>
+              Entregados
+            </h3>
+            <p class="stat-value" id="stat-entregados">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon" style="background: #FFF3E0; color: #F57C00;">💰</span>
+              Ventas Totales
+            </h3>
+            <p class="stat-value" id="stat-ventas">$0</p>
+          </div>
+          
+          <!-- Fila 2: Estadísticas del día -->
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon" style="background: #FFF5F7; color: #E91E63;">📅</span>
+              Ventas Hoy
+            </h3>
+            <p class="stat-value" id="stat-ventas-hoy">$0</p>
+          </div>
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon" style="background: #E8F5E9; color: #43A047;">🆕</span>
+              Pedidos Hoy
+            </h3>
+            <p class="stat-value" id="stat-pedidos-hoy">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon" style="background: #E3F2FD; color: #1976D2;">📊</span>
+              Promedio Venta
+            </h3>
+            <p class="stat-value" id="stat-promedio-venta">$0</p>
+          </div>
+          <div class="stat-card">
+            <h3>
+              <span class="stat-icon" style="background: #F3E5F5; color: #8E24AA;">👥</span>
+              Clientes Únicos
+            </h3>
+            <p class="stat-value" id="stat-clientes-unicos">0</p>
+          </div>
+        </div>
+        
+        <p style="margin-top: 20px; color: var(--color-text-secondary); text-align: center;">
+          🔄 Actualizado en tiempo real
+        </p>
+      </section>
+
+      <!-- ============ SECCIÓN CONFIGURACIÓN ============ -->
+      <section class="admin-section" id="section-configuracion" style="display: none;">
+        <p class="section-placeholder">⚙️ Sección de configuración en desarrollo...</p>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ============ MODAL DETALLE DE PEDIDO ============ -->
+  <div class="modal-overlay" id="modal-detalle" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>📋 Detalle del Pedido</h2>
+        <button class="btn-close-modal" onclick="cerrarModalDetalle()">✕</button>
+      </div>
+      <div class="modal-body" id="detalle-pedido-content">
+        <!-- Contenido dinámico -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="cerrarModalDetalle()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL PRODUCTO ============ -->
+  <div class="modal-producto" id="modal-producto">
+    <div class="modal-producto-content">
+      <div class="modal-producto-header">
+        <h2 id="modal-producto-titulo">➕ Nuevo Producto</h2>
+        <button class="btn-close-modal" onclick="adminProductos.ocultarFormulario()">✕</button>
+      </div>
+      
+      <form id="form-producto" enctype="multipart/form-data">
+        <div class="modal-producto-body">
+          
+          <!-- Nombre -->
+          <div class="form-grupo">
+            <label for="producto-nombre">
+              Nombre <span class="requerido">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="producto-nombre" 
+              name="nombre" 
+              required 
+              placeholder="Ej: Ancheta Especial"
+              maxlength="200"
+            >
+          </div>
+
+          <!-- Descripción -->
+          <div class="form-grupo">
+            <label for="producto-descripcion">Descripción</label>
+            <textarea 
+              id="producto-descripcion" 
+              name="descripcion" 
+              placeholder="Describe el producto..."
+            ></textarea>
+          </div>
+
+          <!-- Precio y Categoría -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            
+            <!-- Precio -->
+            <div class="form-grupo">
+              <label for="producto-precio">
+                Precio <span class="requerido">*</span>
+              </label>
+              <input 
+                type="number" 
+                id="producto-precio" 
+                name="precio" 
+                required 
+                min="0" 
+                step="100"
+                placeholder="0"
+              >
+              <p class="form-hint">En pesos colombianos</p>
+            </div>
+
+            <!-- Categoría -->
+            <div class="form-grupo">
+              <label for="producto-categoria">
+                Categoría <span class="requerido">*</span>
+              </label>
+              <select id="producto-categoria" name="categoria" required>
+                <option value="">Seleccionar...</option>
+                <option value="anchetas">🎁 Anchetas</option>
+                <option value="mini-donas">🍩 Mini Donas</option>
+                <option value="postres">🍰 Postres</option>
+                <option value="dulces">🍬 Dulces</option>
+                <option value="chocolates">🍫 Chocolates</option>
+                <option value="otros">🛍️ Otros</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Disponibilidad -->
+          <div class="form-grupo">
+            <label for="producto-disponible">Estado</label>
+            <select id="producto-disponible" name="disponible">
+              <option value="1">✅ Disponible</option>
+              <option value="0">❌ No disponible</option>
+            </select>
+          </div>
+
+          <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+
+          <!-- Imágenes Existentes (solo en modo edición) -->
+          <div class="imagenes-existentes" id="imagenes-existentes-container">
+            <h4>Imágenes Actuales</h4>
+            <div id="imagenes-existentes"></div>
+          </div>
+
+          <!-- Selector de Imágenes -->
+          <div class="form-grupo">
+            <label>Agregar Imágenes</label>
+            <div class="imagenes-selector" onclick="document.getElementById('producto-imagenes').click()">
+              <label class="imagenes-selector-label">
+                <span class="imagenes-selector-icono">📸</span>
+                <span class="imagenes-selector-texto">
+                  Haz clic para seleccionar imágenes
+                </span>
+                <span class="imagenes-selector-hint">
+                  Formatos: JPG, PNG, WEBP | Máx: 5MB por imagen
+                </span>
+              </label>
+              <input 
+                type="file" 
+                id="producto-imagenes" 
+                name="imagenes" 
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+              >
+            </div>
+            <p class="form-hint">Puedes seleccionar varias imágenes a la vez</p>
+          </div>
+
+          <!-- Preview de Imágenes -->
+          <div id="preview-imagenes"></div>
+
+        </div>
+
+        <div class="modal-producto-footer">
+          <button type="button" class="btn-secondary" id="btn-cancelar-producto">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-primary">
+            💾 Guardar Producto
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ============ LOADING OVERLAY ============ -->
+  <div class="loading-overlay" id="loading-overlay" style="display: none;">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- ============ SCRIPTS ============ -->
+  <!-- Firebase Config -->
+  <script src="js/firebase-config.js"></script>
+  
+  <!-- Utilidades -->
+  <script src="js/utils/validators.js"></script>
+  <script src="js/utils/error-handler.js"></script>
+  
+  <!-- UX Enhancements -->
+  <script src="js/ux-manager.js"></script>
+  
+  <!-- Servicios Firebase -->
+  <script src="js/productos.service.js"></script>
+  <script src="js/pedidos.service.js"></script>
+  <script src="js/storage.service.js"></script>
+  <script src="js/auth.service.js"></script>
+  <script src="js/admin.service.js"></script>
+  <script src="js/firebase.service.js"></script>
+  
+  <!-- API Service (FastAPI Backend) -->
+  <script src="js/api.service.js"></script>
+  
+  <!-- Admin Productos -->
+  <script src="js/admin-productos.js"></script>
+  
+  <!-- Admin principal -->
+  <script src="js/admin.js"></script>
+  
+</body>
+</html>
+
