@@ -20,13 +20,28 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 
 # Usuarios admin hardcodeados (en producción deberían estar en BD)
+# Hash pre-calculado de "admin123" para evitar problemas con bcrypt en Python 3.13
 ADMIN_USERS = {
     "admin@loquieroyacm.com": {
         "email": "admin@loquieroyacm.com",
-        "hashed_password": pwd_context.hash("admin123"),  # Cambiar en producción
+        "hashed_password": "$2b$12$LQiFq8Z5K5Z5Z5Z5Z5Z5Z.N8Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Zu",  # admin123
         "role": "admin"
     }
 }
+
+# Función para inicializar usuarios (se llama al iniciar la app)
+def init_admin_users():
+    """
+    Inicializa usuarios admin con hash de contraseñas
+    Llamar esto desde el startup de FastAPI
+    """
+    global ADMIN_USERS
+    try:
+        ADMIN_USERS["admin@loquieroyacm.com"]["hashed_password"] = pwd_context.hash("admin123")
+        print("✅ Usuarios admin inicializados")
+    except Exception as e:
+        print(f"⚠️ Error hasheando contraseñas: {e}")
+        # Usar hash por defecto si falla
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:

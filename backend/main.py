@@ -21,6 +21,11 @@ async def lifespan(app: FastAPI):
     """
     # Startup
     print("🚀 Iniciando aplicación...")
+    
+    # Inicializar usuarios admin
+    from auth import init_admin_users
+    init_admin_users()
+    
     await init_db()
     print("✅ Base de datos inicializada")
     
