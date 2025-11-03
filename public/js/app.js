@@ -45,68 +45,8 @@ const toppings = [
 ];
 
 // ============ CATÁLOGO DE PRODUCTOS ============
-let productos = [
-  // Mini Donas - Producto base para personalizar
-  {
-    id: 100,
-    tipo: 'mini-donas',
-    nombre: 'Mini Donas Personalizadas',
-    descripcion: 'Deliciosas mini donas artesanales. ¡Personalízalas a tu gusto!',
-    emoji: '🍩',
-    precioBase: 2500,
-    personalizable: true,
-    badge: 'popular',
-    imagen: null,
-    rating: 5,
-    reviews: 127,
-    destacado: true
-  },
-  
-  // Anchetas (productos de ejemplo - puedes agregar más)
-  {
-    id: 200,
-    tipo: 'ancheta',
-    nombre: 'Ancheta Dulce Especial',
-    precio: 35000,
-    descripcion: 'Ancheta con variedad de dulces y postres artesanales',
-    emoji: '🎁',
-    personalizable: false,
-    badge: null,
-    imagen: null,
-    rating: 4,
-    reviews: 89,
-    destacado: true
-  },
-  {
-    id: 201,
-    tipo: 'ancheta',
-    nombre: 'Ancheta Premium',
-    precio: 50000,
-    descripcion: 'Ancheta premium con los mejores productos gourmet',
-    emoji: '🎀',
-    personalizable: false,
-    badge: 'popular',
-    imagen: null,
-    rating: 5,
-    reviews: 156,
-    destacado: true,
-    precioAnterior: 65000
-  },
-  {
-    id: 202,
-    tipo: 'ancheta',
-    nombre: 'Ancheta Romántica',
-    precio: 45000,
-    descripcion: 'Ancheta perfecta para sorprender a esa persona especial',
-    emoji: '💝',
-    personalizable: false,
-    badge: 'nuevo',
-    imagen: null,
-    rating: 5,
-    reviews: 203,
-    destacado: true
-  }
-];
+// Productos de ejemplo eliminados - ahora usa solo productos de la API
+let productos = [];
 
 // ============ VARIABLES GLOBALES ============
 let carrito = [];
@@ -199,9 +139,8 @@ async function cargarProductosAPI() {
         };
       });
       
-      // Combinar productos hardcodeados con productos de la API
-      // Los productos hardcodeados van primero (especialmente mini donas personalizables)
-      const todosProductos = [...productos, ...productosAPI];
+      // Usar solo productos de la API
+      const todosProductos = productosAPI;
       
       // IMPORTANTE: Actualizar el array global de productos
       productos.length = 0; // Limpiar array

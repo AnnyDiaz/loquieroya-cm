@@ -277,68 +277,8 @@ class ProductosService {
    * @returns {Array}
    */
   getProductosEjemplo() {
-    return [
-      {
-        id: 'ancheta-1',
-        nombre: 'Ancheta Dulce Especial',
-        descripcion: 'Ancheta con variedad de dulces colombianos',
-        precio: 45000,
-        categoria: 'anchetas',
-        imagen: 'assets/ancheta1.jpg',
-        disponible: true,
-        emoji: '🎁'
-      },
-      {
-        id: 'ancheta-2',
-        nombre: 'Ancheta Premium',
-        descripcion: 'Ancheta premium con chocolates importados',
-        precio: 85000,
-        categoria: 'anchetas',
-        imagen: 'assets/ancheta2.jpg',
-        disponible: true,
-        emoji: '🎁'
-      },
-      {
-        id: 'ancheta-3',
-        nombre: 'Ancheta Romántica',
-        descripcion: 'Ancheta perfecta para ocasiones especiales',
-        precio: 65000,
-        categoria: 'anchetas',
-        imagen: 'assets/ancheta3.jpg',
-        disponible: true,
-        emoji: '💝'
-      },
-      {
-        id: 'donas-vainilla',
-        nombre: 'Mini Donas Vainilla',
-        descripcion: 'Deliciosas mini donas sabor vainilla',
-        precio: 2500,
-        categoria: 'mini-donas',
-        tipo: 'mini-donas-personalizado',
-        disponible: true,
-        emoji: '🍩',
-        opciones: {
-          sabores: ['Vainilla', 'Frutos Rojos'],
-          glaseados: [
-            'Chocolate Blanco',
-            'Chocolate Negro',
-            'Arequipe',
-            'Leche Condensada',
-            'Azúcar Glass'
-          ],
-          toppings: [
-            'M&M',
-            'Mini Rosas',
-            'Lluvia de Colores',
-            'Perlas Doradas',
-            'Mini Chips',
-            'Figuras de Chocolate',
-            'Perlas Comestibles',
-            'Escarchado'
-          ]
-        }
-      }
-    ];
+    // Retornar array vacío - usar solo productos de la API
+    return [];
   }
 
   /**
