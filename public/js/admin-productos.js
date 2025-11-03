@@ -23,8 +23,33 @@ class AdminProductos {
    */
   async init() {
     console.log('🍰 Inicializando gestión de productos...');
+    
+    // Autenticarse en el backend si no hay token
+    await this.autenticarBackend();
+    
     this.setupEventListeners();
     await this.cargarProductos();
+  }
+
+  /**
+   * Autentica en el backend FastAPI
+   */
+  async autenticarBackend() {
+    try {
+      // Verificar si ya hay token
+      if (apiService.getToken()) {
+        console.log('✅ Ya hay token de API guardado');
+        return;
+      }
+
+      // Hacer login automático con credenciales admin
+      console.log('🔐 Autenticando en backend FastAPI...');
+      await apiService.login('admin@loquieroyacm.com', 'admin123');
+      console.log('✅ Autenticado en backend');
+    } catch (error) {
+      console.error('❌ Error autenticando en backend:', error);
+      this.mostrarError('Error de autenticación. Por favor recarga la página.');
+    }
   }
 
   /**
