@@ -209,9 +209,10 @@
 /* ============ SECCIÓN CATÁLOGO ============ */
 .catalogo-section {
   padding: 5rem 2rem;
-  max-width: 1400px;
+  max-width: 1600px;  /* Más ancho para aprovechar espacio */
   margin: 0 auto;
   position: relative;
+  min-height: 100vh;  /* Altura mínima de viewport completo */
 }
 
 .section-header {
@@ -281,9 +282,10 @@
 /* ============ GRID DE PRODUCTOS ============ */
 .catalogo {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));  /* Tarjetas más grandes */
+  gap: 2.5rem;  /* Más espacio entre tarjetas */
+  margin-top: 3rem;
+  padding: 1rem 0;
 }
 
 /* ============ TARJETAS DE PRODUCTO MEJORADAS ============ */
@@ -346,7 +348,7 @@
 .producto-image-wrapper {
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 320px;  /* Más alto para imágenes más grandes */
   overflow: hidden;
   background: linear-gradient(135deg, #FFE5EC 0%, #FFF8F0 100%);
   display: flex;
@@ -377,7 +379,7 @@
 
 /* Contenido del producto */
 .producto-content {
-  padding: 1.8rem;
+  padding: 2rem 2.2rem;  /* Más padding para contenido más espacioso */
 }
 
 .producto-emoji {
@@ -387,31 +389,32 @@
 }
 
 .producto-nombre {
-  font-size: 1.4rem;
+  font-size: 1.5rem;  /* Título más grande */
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
   line-height: 1.3;
 }
 
 .producto-descripcion {
-  font-size: 0.95rem;
+  font-size: 1rem;  /* Descripción más legible */
   color: var(--color-text-secondary);
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+  margin-bottom: 1.8rem;
+  line-height: 1.7;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;  /* Mostrar 3 líneas en lugar de 2 */
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 4.5rem;  /* Altura mínima consistente */
 }
 
 /* Precio destacado */
 .producto-precio-wrapper {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;  /* Más espacio antes del botón */
 }
 
 .producto-precio {
-  font-size: 2rem;
+  font-size: 2.3rem;  /* Precio más grande y destacado */
   font-weight: 700;
   color: var(--color-primary-dark);
   display: flex;
@@ -434,20 +437,20 @@
 /* Botón agregar mejorado */
 .btn-agregar {
   width: 100%;
-  padding: 1rem;
+  padding: 1.2rem 1.5rem;  /* Botón más grande */
   background: var(--gradient-primary);
   color: white;
   border: none;
   border-radius: var(--radius-xl);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.05rem;  /* Texto más grande */
   cursor: pointer;
   transition: all var(--transition-normal);
   box-shadow: var(--shadow-boutique-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .btn-agregar:hover {
@@ -482,8 +485,12 @@
 /* Tablets */
 @media (max-width: 1024px) {
   .catalogo {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));  /* Tarjetas más grandes en tablet */
+    gap: 2rem;
+  }
+  
+  .catalogo-section {
+    max-width: 1200px;
   }
   
   .hero-title {
@@ -492,6 +499,10 @@
   
   .hero-subtitle {
     font-size: 1.1rem;
+  }
+  
+  .producto-image-wrapper {
+    height: 300px;
   }
 }
 
@@ -540,11 +551,12 @@
   
   .catalogo-section {
     padding: 3rem 1rem;
+    max-width: 100%;
   }
   
   .catalogo {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr;  /* Una columna en móvil */
+    gap: 2rem;  /* Mantener espacio generoso */
   }
   
   .filtros-categorias {
