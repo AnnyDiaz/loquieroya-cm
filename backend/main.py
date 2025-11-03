@@ -44,10 +44,21 @@ app = FastAPI(
 )
 
 # Configurar CORS
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "*")
+if allowed_origins_str == "*":
+    allowed_origins = ["*"]
+else:
+    allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",")]
+
+# Agregar automáticamente el dominio de Firebase
+if "https://loquieroya-cm.web.app" not in allowed_origins and "*" not in allowed_origins:
+    allowed_origins.append("https://loquieroya-cm.web.app")
+
+print(f"🔒 CORS configurado para: {allowed_origins}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins if allowed_origins != ["*"] else ["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
