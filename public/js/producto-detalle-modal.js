@@ -769,5 +769,3 @@
     window.productoDetalleModal = productoDetalleModal;
     window.initProductoDetalleModal = initProductoDetalleModal;
   }
-  
-  export { ProductoDetalleModal, abrirDetalleProducto };
