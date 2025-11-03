@@ -5,7 +5,17 @@
 
 class ApiService {
   constructor() {
-    this.baseURL = 'http://localhost:8000';
+    // Usar configuración dinámica si está disponible
+    if (typeof window !== 'undefined' && window.API_CONFIG) {
+      this.baseURL = window.API_CONFIG.baseURL;
+      this.timeout = window.API_CONFIG.timeout || 5000;
+      console.log(`🔌 API Service configurado: ${this.baseURL}`);
+    } else {
+      // Fallback a localhost
+      this.baseURL = 'http://localhost:8000';
+      this.timeout = 5000;
+      console.warn('⚠️ Usando configuración por defecto (localhost)');
+    }
     this.token = localStorage.getItem('api_token');
   }
 
