@@ -69,8 +69,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Montar directorio de archivos estáticos
+# Montar directorio de archivos estáticos (crear si no existe)
 media_path = os.getenv("MEDIA_PATH", "./media")
+os.makedirs(media_path, exist_ok=True)  # Crear directorio antes de montar
 app.mount("/media", StaticFiles(directory=media_path), name="media")
 
 # Registrar rutas
