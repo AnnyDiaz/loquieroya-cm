@@ -23,7 +23,7 @@ class Producto(Base):
     disponible = Column(Integer, default=1)  # 1 = disponible, 0 = no disponible
     
     # Relación con imágenes
-    imagenes = relationship("ImagenProducto", back_populates="producto", cascade="all, delete-orphan")
+    imagenes = relationship("ImagenProducto", back_populates="producto", cascade="all, delete-orphan", lazy="selectin")
     
     def __repr__(self):
         return f"<Producto {self.nombre}>"

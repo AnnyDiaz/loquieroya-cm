@@ -46,12 +46,15 @@ async def crear_producto(
         
         db.add(nuevo_producto)
         await db.commit()
-        await db.refresh(nuevo_producto)
+        await db.refresh(nuevo_producto, ["imagenes"])  # Refresh con relaciones
         
         return nuevo_producto
     
     except Exception as e:
         await db.rollback()
+        print(f"❌ Error creando producto: {str(e)}")  # Log para debug
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error creando producto: {str(e)}")
 
 

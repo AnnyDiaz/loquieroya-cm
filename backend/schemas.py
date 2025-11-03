@@ -21,9 +21,9 @@ class ImagenProductoResponse(ImagenProductoBase):
     """Schema para respuesta de Imagen de Producto"""
     id: int
     producto_id: int
-    fecha_subida: datetime
+    fecha_subida: Optional[datetime] = None
     
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, arbitrary_types_allowed=True)
 
 
 class ProductoBase(BaseModel):
@@ -52,12 +52,12 @@ class ProductoUpdate(BaseModel):
 class ProductoResponse(ProductoBase):
     """Schema para respuesta de Producto"""
     id: int
-    creado_por: Optional[str]
-    fecha_creacion: datetime
-    fecha_actualizacion: Optional[datetime]
-    imagenes: List[ImagenProductoResponse] = []
+    creado_por: Optional[str] = None
+    fecha_creacion: Optional[datetime] = None
+    fecha_actualizacion: Optional[datetime] = None
+    imagenes: Optional[List[ImagenProductoResponse]] = []
     
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, arbitrary_types_allowed=True)
 
 
 class ProductoListResponse(BaseModel):
