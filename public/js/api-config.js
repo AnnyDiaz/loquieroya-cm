@@ -10,7 +10,7 @@
 const API_CONFIG = {
   // Producción (Render)
   production: {
-    baseURL: 'https://loquieroya-api.onrender.com',
+    baseURL: 'https://loquieroya-cm.onrender.com',
     timeout: 30000, // 30 segundos (Render puede tardar en "despertar")
     name: 'Render (Producción)'
   },
