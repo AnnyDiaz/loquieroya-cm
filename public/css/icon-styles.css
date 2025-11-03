@@ -1,0 +1,58 @@
+/* ============================================
+   🎨 Estilos para Iconos Font Awesome
+   Lo Quiero YA CM
+   ============================================ */
+
+/* Iconos en productos */
+.producto-icon i {
+  font-size: inherit;
+  display: inline-block;
+}
+
+.producto-emoji i {
+  font-size: 2rem;
+  color: var(--color-primary-dark, #E57A9D);
+}
+
+.producto-placeholder i {
+  font-size: 6rem;
+  color: var(--color-primary, #FFB5C2);
+  opacity: 0.8;
+}
+
+/* Iconos en filtros */
+.filtro-btn i {
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Iconos en badges */
+.producto-badge i {
+  margin-right: 0.3rem;
+  font-size: 0.85rem;
+}
+
+/* Iconos en botones */
+.btn-icon i {
+  font-size: 1.1rem;
+}
+
+.nav-btn i {
+  margin-right: 0.5rem;
+}
+
+/* Iconos en tarjetas de producto */
+.producto-card .producto-icon {
+  transition: transform var(--transition-normal, 0.3s);
+}
+
+.producto-card:hover .producto-icon {
+  transform: scale(1.1);
+}
+
+/* Asegurar que los iconos se vean bien */
+i.fas, i.fab, i.far {
+  line-height: 1;
+  vertical-align: middle;
+}
+

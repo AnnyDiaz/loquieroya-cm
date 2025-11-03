@@ -45,7 +45,7 @@ const toppings = [
 ];
 
 // ============ CATÁLOGO DE PRODUCTOS ============
-const productos = [
+let productos = [
   // Mini Donas - Producto base para personalizar
   {
     id: 100,
@@ -174,15 +174,11 @@ async function cargarProductosAPI() {
       
       // Convertir productos de la API al formato esperado
       const productosAPI = response.productos.map(p => {
-        // Mapear categoría a emoji
-        const emojiMap = {
-          'anchetas': '🎁',
-          'mini-donas': '🍩',
-          'postres': '🍰',
-          'dulces': '🍬',
-          'chocolates': '🍫',
-          'otros': '🛍️'
-        };
+        // Usar icon mapper si está disponible
+        let iconoCategoria = p.categoria;
+        if (typeof getCategoryIcon === 'function') {
+          iconoCategoria = getCategoryIcon(p.categoria);
+        }
         
         return {
           id: p.id + 1000, // Offset para no chocar con productos hardcodeados
@@ -190,7 +186,7 @@ async function cargarProductosAPI() {
           nombre: p.nombre,
           precio: p.precio,
           descripcion: p.descripcion || '',
-          emoji: emojiMap[p.categoria] || '🛍️',
+          emoji: iconoCategoria, // Ahora es un icono HTML
           personalizable: false,
           badge: null,
           imagen: p.imagenes && p.imagenes.length > 0 ? apiService.getImageUrl(p.imagenes[0].url_imagen) : null,
@@ -198,13 +194,18 @@ async function cargarProductosAPI() {
           rating: 5,
           reviews: 0,
           destacado: false,
-          fromAPI: true
+          fromAPI: true,
+          useIcon: true // Flag para saber que usa icono HTML
         };
       });
       
       // Combinar productos hardcodeados con productos de la API
       // Los productos hardcodeados van primero (especialmente mini donas personalizables)
       const todosProductos = [...productos, ...productosAPI];
+      
+      // IMPORTANTE: Actualizar el array global de productos
+      productos.length = 0; // Limpiar array
+      productos.push(...todosProductos); // Agregar todos los productos
       
       // Renderizar todos los productos
       renderizarCatalogo(todosProductos);
@@ -266,12 +267,12 @@ function crearTarjetaProducto(producto) {
     <div class="producto-image-wrapper">
       ${producto.imagen ? 
         `<img src="${producto.imagen}" alt="${producto.nombre}" class="producto-image">` :
-        `<div class="producto-placeholder">${producto.emoji}</div>`
+        `<div class="producto-placeholder producto-icon">${producto.emoji}</div>`
       }
     </div>
     
     <div class="producto-content">
-      <span class="producto-emoji">${producto.emoji}</span>
+      <span class="producto-emoji producto-icon">${producto.emoji}</span>
       <h3 class="producto-nombre">${producto.nombre}</h3>
       <p class="producto-descripcion">${producto.descripcion}</p>
       
@@ -284,7 +285,7 @@ function crearTarjetaProducto(producto) {
       </div>
       
       <button class="btn-agregar" onclick="${producto.personalizable ? 'abrirPersonalizacion(' + producto.id + ')' : 'agregarAlCarrito(' + producto.id + ')'}">
-        <span class="btn-icon">${producto.personalizable ? '🎨' : '🛒'}</span>
+        <span class="btn-icon">${producto.personalizable ? '<i class="fas fa-palette"></i>' : '<i class="fas fa-cart-plus"></i>'}</span>
         ${textoBoton}
       </button>
     </div>
