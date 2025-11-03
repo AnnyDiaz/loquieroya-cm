@@ -318,6 +318,13 @@ class ApiService {
   getImageUrl(urlRelativa) {
     if (!urlRelativa) return null;
     if (urlRelativa.startsWith('http')) return urlRelativa;
+    
+    // Si ya tiene /media, no duplicar
+    if (urlRelativa.startsWith('/media') || urlRelativa.startsWith('media')) {
+      const cleanUrl = urlRelativa.startsWith('/') ? urlRelativa : `/${urlRelativa}`;
+      return `${this.baseURL}${cleanUrl}`;
+    }
+    
     return `${this.baseURL}${urlRelativa}`;
   }
 }

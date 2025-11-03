@@ -243,7 +243,7 @@ class ProductoDetalleModal {
       imagenes.forEach((imagen, index) => {
         const slide = `
           <div class="swiper-slide">
-            <img src="${imagen}" alt="${producto.nombre} - Imagen ${index + 1}" loading="lazy">
+            <img src="${imagen}" alt="${producto.nombre} - Imagen ${index + 1}" loading="eager" onerror="this.parentElement.innerHTML='<div class=producto-placeholder-modal>${producto.emoji || '<i class=fas fa-image></i>'}</div>'">
           </div>
         `;
         wrapper.insertAdjacentHTML('beforeend', slide);
@@ -251,7 +251,7 @@ class ProductoDetalleModal {
         // Agregar miniatura
         const thumbnail = `
           <div class="thumbnail ${index === 0 ? 'active' : ''}" data-index="${index}">
-            <img src="${imagen}" alt="Miniatura ${index + 1}">
+            <img src="${imagen}" alt="Miniatura ${index + 1}" onerror="this.style.display='none'">
           </div>
         `;
         thumbnailsContainer.insertAdjacentHTML('beforeend', thumbnail);
