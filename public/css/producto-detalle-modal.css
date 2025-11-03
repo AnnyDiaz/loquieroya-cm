@@ -1,0 +1,415 @@
+/* ============================================
+   🎨 MODAL DE DETALLES DEL PRODUCTO
+   Lo Quiero YA CM - Diseño Boutique
+   ============================================ */
+
+/* Overlay del modal */
+.producto-detalle-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);  /* Fondo semi-transparente */
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.producto-detalle-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Contenedor del modal */
+.producto-detalle-modal {
+  background: white;
+  border-radius: 24px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.producto-detalle-overlay.active .producto-detalle-modal {
+  transform: scale(1);
+}
+
+/* Botón cerrar */
+.modal-cerrar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.modal-cerrar:hover {
+  background: #FFB5C2;
+  color: white;
+  transform: rotate(90deg);
+}
+
+.modal-cerrar i {
+  font-size: 1.2rem;
+}
+
+/* Layout del modal */
+.modal-contenido {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 40px;
+}
+
+/* Sección de imágenes (izquierda) */
+.modal-imagenes {
+  position: relative;
+}
+
+/* Carrusel de imágenes con Swiper */
+.producto-carrusel {
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FFE5EC 0%, #FFF8F0 100%);
+}
+
+.producto-carrusel .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+}
+
+.producto-carrusel .swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* Placeholder para productos sin imagen */
+.producto-carrusel .producto-placeholder-modal {
+  font-size: 8rem;
+  color: #FFB5C2;
+  opacity: 0.6;
+}
+
+/* Miniaturas del carrusel */
+.producto-thumbnails {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #FFE5EC 0%, #FFF8F0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumbnail.active {
+  border-color: #FFB5C2;
+  box-shadow: 0 0 0 3px rgba(255, 181, 194, 0.2);
+}
+
+.thumbnail:hover {
+  border-color: #FFB5C2;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Botones de navegación Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #FFB5C2 !important;
+  background: white;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 16px !important;
+}
+
+.swiper-pagination-bullet {
+  background: #FFB5C2 !important;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Sección de información (derecha) */
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-categoria {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #FFE5EC 0%, #FFF8F0 100%);
+  color: #E57A9D;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+
+.modal-nombre {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2D2D2D;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.modal-descripcion {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.modal-precio-wrapper {
+  background: linear-gradient(135deg, #FFE5EC 0%, #FFF8F0 100%);
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-precio-label {
+  font-size: 0.85rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.modal-precio {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #E57A9D;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.modal-precio-moneda {
+  font-size: 1.5rem;
+}
+
+/* Badge de producto */
+.modal-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #FFB5C2 0%, #E57A9D 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(229, 122, 157, 0.3);
+  z-index: 5;
+}
+
+.modal-badge.popular {
+  background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+}
+
+.modal-badge.nuevo {
+  background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+}
+
+/* Botones de acción */
+.modal-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.btn-modal {
+  flex: 1;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-agregar-modal {
+  background: linear-gradient(135deg, #FFB5C2 0%, #E57A9D 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(229, 122, 157, 0.3);
+}
+
+.btn-agregar-modal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 122, 157, 0.4);
+}
+
+.btn-volver-modal {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.btn-volver-modal:hover {
+  background: #e0e0e0;
+}
+
+/* Información adicional */
+.modal-info-extra {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 20px 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.info-item i {
+  color: #FFB5C2;
+  font-size: 1.2rem;
+}
+
+/* ============ RESPONSIVE ============ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .modal-contenido {
+    grid-template-columns: 1fr;
+    padding: 30px 20px;
+  }
+  
+  .producto-carrusel .swiper-slide {
+    height: 300px;
+  }
+  
+  .modal-nombre {
+    font-size: 1.6rem;
+  }
+  
+  .modal-precio {
+    font-size: 2rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+  .producto-detalle-overlay {
+    padding: 0;
+  }
+  
+  .producto-detalle-modal {
+    border-radius: 0;
+    max-height: 100vh;
+    height: 100vh;
+  }
+  
+  .modal-contenido {
+    padding: 20px 15px;
+    padding-top: 60px;
+  }
+  
+  .producto-carrusel .swiper-slide {
+    height: 250px;
+  }
+  
+  .modal-nombre {
+    font-size: 1.4rem;
+  }
+  
+  .modal-acciones {
+    flex-direction: column;
+  }
+  
+  .modal-cerrar {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* Scroll suave del modal */
+.producto-detalle-modal {
+  scrollbar-width: thin;
+  scrollbar-color: #FFB5C2 #f5f5f5;
+}
+
+.producto-detalle-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.producto-detalle-modal::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.producto-detalle-modal::-webkit-scrollbar-thumb {
+  background: #FFB5C2;
+  border-radius: 10px;
+}
+
+.producto-detalle-modal::-webkit-scrollbar-thumb:hover {
+  background: #E57A9D;
+}
+

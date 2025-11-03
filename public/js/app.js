@@ -192,6 +192,16 @@ function crearTarjetaProducto(producto) {
   div.classList.add('producto-card');
   div.setAttribute('data-id', producto.id);
   
+  // Agregar evento clic para abrir modal de detalles
+  div.addEventListener('click', (e) => {
+    // No abrir modal si se hizo clic en el botón de agregar
+    if (!e.target.closest('.btn-agregar')) {
+      if (typeof abrirDetalleProducto === 'function') {
+        abrirDetalleProducto(producto.id);
+      }
+    }
+  });
+  
   const precioMostrar = producto.precio || producto.precioBase;
   const textoBoton = producto.personalizable ? '🎨 Personalizar' : '🛒 Agregar al Carrito';
   const badgeText = {
@@ -223,7 +233,7 @@ function crearTarjetaProducto(producto) {
         <span class="precio-etiqueta">${producto.personalizable ? 'Desde' : 'Precio'}</span>
       </div>
       
-      <button class="btn-agregar" onclick="${producto.personalizable ? 'abrirPersonalizacion(' + producto.id + ')' : 'agregarAlCarrito(' + producto.id + ')'}">
+      <button class="btn-agregar" onclick="event.stopPropagation(); ${producto.personalizable ? 'abrirPersonalizacion(' + producto.id + ')' : 'agregarAlCarrito(' + producto.id + ')'}" title="${textoBoton}">
         <span class="btn-icon">${producto.personalizable ? '<i class="fas fa-palette"></i>' : '<i class="fas fa-cart-plus"></i>'}</span>
         ${textoBoton}
       </button>

@@ -281,10 +281,35 @@
 /* ============ GRID DE PRODUCTOS ============ */
 .catalogo {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  /* Tamaño óptimo para ver más productos */
-  gap: 1.8rem;  /* Espacio balanceado */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  /* Grid responsive perfecto */
+  gap: 24px;  /* 24px como especificado */
+  justify-content: center;
   margin-top: 2rem;
-  padding: 0.5rem 0;
+  padding: 20px;
+  max-width: 100%;
+}
+
+/* Desktop: máximo 4 columnas */
+@media (min-width: 1200px) {
+  .catalogo {
+    grid-template-columns: repeat(4, minmax(250px, 280px));
+  }
+}
+
+/* Tablet: 2-3 columnas */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .catalogo {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/* Móvil: 1 columna centrada */
+@media (max-width: 767px) {
+  .catalogo {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 2rem auto 0;
+  }
 }
 
 /* ============ TARJETAS DE PRODUCTO MEJORADAS ============ */
@@ -360,6 +385,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+  border-radius: 12px;  /* Imágenes con bordes redondeados */
 }
 
 .producto-card:hover .producto-image {
@@ -378,7 +404,11 @@
 
 /* Contenido del producto */
 .producto-content {
-  padding: 1.5rem 1.8rem;  /* Padding balanceado */
+  padding: 16px;  /* Padding según especificación */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .producto-emoji {
