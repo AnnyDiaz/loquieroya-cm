@@ -48,16 +48,23 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Configurar CORS
-allowed_origins_str = os.getenv("ALLOWED_ORIGINS", "*")
-if allowed_origins_str == "*":
-    allowed_origins = ["*"]
-else:
-    allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",")]
+# Configurar CORS - Permitir Firebase Hosting
+allowed_origins = [
+    "https://loquieroya-cm.web.app",
+    "https://loquieroya-cm.firebaseapp.com",
+    "http://localhost:5500",
+    "http://localhost:5000",
+    "http://127.0.0.1:5500"
+]
 
-# Agregar automáticamente el dominio de Firebase
-if "https://loquieroya-cm.web.app" not in allowed_origins and "*" not in allowed_origins:
-    allowed_origins.append("https://loquieroya-cm.web.app")
+# Agregar orígenes adicionales desde variable de entorno
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+if allowed_origins_env:
+    extra_origins = [origin.strip() for origin in allowed_origins_env.split(",") if origin.strip()]
+    allowed_origins.extend(extra_origins)
+
+# Eliminar duplicados
+allowed_origins = list(set(allowed_origins))
 
 print(f"🔒 CORS configurado para: {allowed_origins}")
 
@@ -67,6 +74,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 # Montar directorio de archivos estáticos (crear si no existe)
