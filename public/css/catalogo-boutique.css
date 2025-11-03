@@ -278,6 +278,84 @@
   box-shadow: var(--shadow-boutique-lg);
 }
 
+/* ============ MENSAJE DE CARGA ============ */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1.2rem;
+  color: #999;
+  font-style: italic;
+}
+
+/* ============ CATÁLOGO VACÍO ============ */
+.catalogo-vacio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px 20px;
+}
+
+.catalogo-vacio-contenido {
+  text-align: center;
+  max-width: 500px;
+}
+
+.catalogo-vacio-icono {
+  font-size: 5rem;
+  color: #FFB5C2;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.catalogo-vacio-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2D2D2D;
+  margin-bottom: 15px;
+}
+
+.catalogo-vacio-texto {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.catalogo-vacio-subtexto {
+  font-size: 0.95rem;
+  color: #999;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-catalogo-vacio {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-catalogo-vacio:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.btn-catalogo-vacio i {
+  font-size: 1.3rem;
+}
+
 /* ============ GRID DE PRODUCTOS ============ */
 .catalogo {
   display: grid;

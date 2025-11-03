@@ -146,8 +146,13 @@ async function cargarProductosAPI() {
       productos.length = 0; // Limpiar array
       productos.push(...todosProductos); // Agregar todos los productos
       
-      // Renderizar todos los productos
-      renderizarCatalogo(todosProductos);
+      // Verificar si hay productos para renderizar
+      if (todosProductos.length === 0) {
+        mostrarCatalogoVacio();
+      } else {
+        // Renderizar todos los productos
+        renderizarCatalogo(todosProductos);
+      }
       
       console.log(`✅ ${productosAPI.length} productos cargados desde la API`);
       console.log(`✅ ${todosProductos.length} productos totales en el catálogo`);
@@ -165,9 +170,41 @@ async function cargarProductosAPI() {
     
   } catch (error) {
     console.error('❌ Error cargando productos desde API:', error);
-    // En caso de error, usar productos hardcodeados
-    renderizarCatalogo(productos);
+    
+    // Si no hay productos, mostrar mensaje de catálogo vacío
+    if (productos.length === 0) {
+      mostrarCatalogoVacio();
+    } else {
+      // En caso de error, usar productos hardcodeados si existen
+      renderizarCatalogo(productos);
+    }
   }
+}
+
+/**
+ * Muestra un mensaje cuando el catálogo está vacío
+ */
+function mostrarCatalogoVacio() {
+  catalogoContainer.innerHTML = `
+    <div class="catalogo-vacio">
+      <div class="catalogo-vacio-contenido">
+        <i class="fas fa-box-open catalogo-vacio-icono"></i>
+        <h3 class="catalogo-vacio-titulo">¡Catálogo en Preparación!</h3>
+        <p class="catalogo-vacio-texto">
+          Estamos preparando deliciosos productos para ti.<br>
+          Pronto tendremos anchetas, mini donas, postres y mucho más.
+        </p>
+        <p class="catalogo-vacio-subtexto">
+          <i class="fas fa-clock"></i> Vuelve pronto o contáctanos para hacer tu pedido personalizado.
+        </p>
+        <a href="https://wa.me/573000000000" class="btn-catalogo-vacio" target="_blank">
+          <i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp
+        </a>
+      </div>
+    </div>
+  `;
+  
+  console.log('ℹ️ Catálogo vacío - mostrando mensaje');
 }
 
 /**
