@@ -19,34 +19,40 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 
-# Usuarios admin hardcodeados (en producción deberían estar en BD)
-# Hash pre-calculado de "admin123" para evitar problemas con bcrypt en Python 3.13
+# Usuarios admin - estructura base
 ADMIN_USERS = {
     "admin@loquieroyacm.com": {
         "email": "admin@loquieroyacm.com",
-        "hashed_password": "$2b$12$LQiFq8Z5K5Z5Z5Z5Z5Z5Z.N8Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Zu",  # admin123
+        "password_plain": "admin123",  # Solo para comparación simple
+        "hashed_password": None,  # Se generará en la primera autenticación
         "role": "admin"
     }
 }
 
-# Función para inicializar usuarios (se llama al iniciar la app)
 def init_admin_users():
     """
     Inicializa usuarios admin con hash de contraseñas
-    Llamar esto desde el startup de FastAPI
+    Se llama desde el startup de FastAPI
     """
     global ADMIN_USERS
     try:
-        ADMIN_USERS["admin@loquieroyacm.com"]["hashed_password"] = pwd_context.hash("admin123")
-        print("✅ Usuarios admin inicializados")
+        # Intentar hashear las contraseñas
+        for email, user in ADMIN_USERS.items():
+            if user.get("password_plain") and not user.get("hashed_password"):
+                user["hashed_password"] = pwd_context.hash(user["password_plain"])
+        print("✅ Usuarios admin inicializados con bcrypt")
     except Exception as e:
-        print(f"⚠️ Error hasheando contraseñas: {e}")
-        # Usar hash por defecto si falla
+        print(f"⚠️ No se pudo usar bcrypt: {e}")
+        print("ℹ️ Usando comparación simple de contraseñas")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verifica contraseña"""
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return pwd_context.verify(plain_password, hashed_password)
+    except Exception as e:
+        print(f"⚠️ Error verificando password con bcrypt: {e}")
+        return False
 
 
 def get_password_hash(password: str) -> str:
@@ -71,8 +77,18 @@ def authenticate_user(email: str, password: str):
     user = ADMIN_USERS.get(email)
     if not user:
         return False
-    if not verify_password(password, user["hashed_password"]):
+    
+    # Intentar verificar con hash bcrypt si existe
+    if user.get("hashed_password"):
+        if not verify_password(password, user["hashed_password"]):
+            return False
+    # Fallback: comparación simple si no hay hash
+    elif user.get("password_plain"):
+        if password != user["password_plain"]:
+            return False
+    else:
         return False
+    
     return user
 
 
