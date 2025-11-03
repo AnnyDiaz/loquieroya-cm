@@ -108,7 +108,6 @@ async function cargarProductosAPI() {
     // Cargar productos desde la API
     if (typeof apiService !== 'undefined') {
       const response = await apiService.getProductos({
-        disponible: 1,
         limit: 100
       });
       
